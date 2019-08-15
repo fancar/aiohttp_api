@@ -1,0 +1,11 @@
+mysql:
+  database: iot
+  user: user
+  password: password
+  host: 127.0.0.1
+  port: 3306
+  minsize: 1
+  maxsize: 5
+
+host: 0.0.0.0
+port: 8080
