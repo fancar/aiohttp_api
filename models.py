@@ -30,7 +30,8 @@ table_logs = sa.Table(
     sa.Column('deveui', sa.String(20)),
     sa.Column('status', sa.Boolean()),
     sa.Column('payload_hex', sa.String(100)), # , nullable=False
-    sa.Column('raw', sa.String(10000)),
+    #sa.Column('raw', sa.String(10000)),
+    sa.Column('raw', sa.Text),
     sa.Column('created_at', sa.DateTime, index=True, default=datetime.utcnow)
 )
 
@@ -38,6 +39,7 @@ table_logs = sa.Table(
 async def save_json(cur,data):
     rows = {}
     rows["raw"] = str(data)
+    rows["created_at"] = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
 
     try:
         data = data["DevEUI_uplink"]
@@ -87,7 +89,7 @@ async def init_tables(loop,argv):
     #sql_drop = str(DropTable(table_logs))
     incr = f'ALTER TABLE `{logs_table_name}` CHANGE `id` `id` BIGINT(0) NOT NULL AUTO_INCREMENT'
     # ALTER TABLE `smartsocket` CHANGE `id` `id` BIGINT(0) NOT NULL AUTO_INCREMENT
-    #print("sql_create: ",sql_create)
+    print("sql_create: ",sql_create)
 
     async with conn.cursor() as cur: #aiomysql.cursors.DeserializationCursor, aiomysql.cursors.DictCursor
 
