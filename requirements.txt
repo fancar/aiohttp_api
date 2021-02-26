@@ -1,4 +1,4 @@
-aiohttp==3.5.4
+aiohttp==3.7.4
 aiohttp-session==2.7.0
 aiojobs==0.2.2
 aiomysql==0.0.20
